@@ -47,7 +47,7 @@ internal_server(Index) ->
   end.
 
 serve(Pid) ->
-  io:write("Starting server ~n"),
+  io:format("Starting server ~n"),
   Server_1 = spawn(palin, internal_server, [1]),
   Server_2 = spawn(palin, internal_server, [2]),
   frontend_server(Pid, [Server_1, Server_2]).
