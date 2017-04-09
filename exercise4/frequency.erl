@@ -10,6 +10,12 @@
 -export([start/0,allocate/0,deallocate/1,stop/0,clear/0]).
 -export([init/0]).
 
+%% READ THIS
+%% The solution for this is to add a timeout for the client, after nothing 
+%% has been received after the time defined (1s) a message is printed. Once the 
+%% server process the next message it verifies for old messages in mailbox and 
+%% discard any message that exists
+
 %% These are the start functions used to create and
 %% initialize the server.
 
