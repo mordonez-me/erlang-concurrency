@@ -33,8 +33,6 @@ get_frequencies() -> [10,11,12,13,14,15].
 %% The Main Loop
 
 loop(Frequencies) ->
-  % This is called each time loop is called to discard mailbox messages
-  clear(),
   % Simulate overload for frequency server
   timer:sleep(10000),
   receive
@@ -54,6 +52,8 @@ loop(Frequencies) ->
 %% Functional interface
 
 allocate() -> 
+  % This is called to discard mailbox messages that were not catched
+  clear(),
   frequency ! {request, self(), allocate},
   receive 
     {reply, Reply} -> Reply
@@ -63,6 +63,8 @@ allocate() ->
   end.
 
 deallocate(Freq) -> 
+  % This is called to discard mailbox messages that were not catched
+  clear(),
   frequency ! {request, self(), {deallocate, Freq}},
   receive 
     {reply, Reply} -> Reply
